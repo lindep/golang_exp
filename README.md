@@ -3,6 +3,7 @@ Golang experiments
 
 Create the following directory structure and clone into the directory "repo"
 
+```
 ├── bin
 ├── pkg
 └── src
@@ -11,3 +12,4 @@ Create the following directory structure and clone into the directory "repo"
             └── golang_exp
                 ├── flags
                 └── testfile
+``
