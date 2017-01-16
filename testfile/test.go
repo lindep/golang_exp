@@ -2,7 +2,6 @@
 package main
 
 import (
-	_ "flag"
 	"fmt"
 	"os"
 	"log"
@@ -11,7 +10,7 @@ import (
 func main() {
 
 	args := os.Args
-	fmt.Printf("argv flags = %d\n", len(args));
+	fmt.Printf("arg's = %d\n", len(args));
   if len(args) < 1 {
       fmt.Println("Input file is missing.");
       os.Exit(1);
