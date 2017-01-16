@@ -1,2 +1,2 @@
 # golang_exp
-Golang expreiments
+Golang experiments
