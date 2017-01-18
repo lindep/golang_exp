@@ -22,17 +22,18 @@ func myOut(msg string) int {
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
-	
+
 	for scanner.Scan() {
 		//lineObj := make(map[string]string)
-
 		newJsonStr, delim := "", ""
-
 		//fmt.Fprintln(os.Stdout, "---Start line---")
 		splitText := strings.Split(scanner.Text(), "|")
 		for _, chunk := range splitText {
-			//subValObj := make(map[int]string)
 			keyValue := strings.Split(chunk, "=")
+			if len(keyValue) != 2 {
+				continue
+			}
+
 			if strings.Contains(keyValue[1], ",") {
 				subJsonStr, subDelim := "", ""
 				for valIdx, value := range strings.Split(keyValue[1], ",") {
@@ -43,11 +44,10 @@ func main() {
 				subJsonStr = "["+subJsonStr+"]"
 				newJsonStr = newJsonStr+delim+"\""+keyValue[0]+"\":"+subJsonStr
 			} else {
-				//lineObj[keyValue[0]] = keyValue[1]
 				newJsonStr = newJsonStr+delim+"\""+keyValue[0]+"\":\""+keyValue[1]+"\""
 			}
 			delim = ","
-			
+
 		}
 		newJsonStr = "{"+newJsonStr+"}"
 
@@ -58,5 +58,3 @@ func main() {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 }
-
-
