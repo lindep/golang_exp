@@ -32,11 +32,13 @@ func main() {
 	//scanner.Split(split)
 	// When no split default to lines
 	for scanner.Scan() {
+		fmt.Fprintln(os.Stdout, "---Start line---")
 		//fmt.Println(scanner.Text()+ "new line") // Println will add back the final '\n'
 		//raw := scanner.Bytes()
-		//fmt.Fprintln(os.Stdout, scanner.Bytes())
+		fmt.Fprintln(os.Stdout, scanner.Bytes())
 		numBytes := myOut(scanner.Text())
 		fmt.Fprintln(os.Stdout, " Written bytes", numBytes)
+		fmt.Fprintln(os.Stdout, "---End line---")
 	}
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
