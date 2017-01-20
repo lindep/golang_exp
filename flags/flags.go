@@ -11,7 +11,23 @@ package main
 import "flag"
 import "fmt"
 
+var helpString string
+
+func init() {
+ const (
+     defaultHelp = "help"
+     usage         = "Help message"
+ )
+ flag.StringVar(&helpString, "help", defaultHelp, usage)
+ flag.StringVar(&helpString, "g", defaultHelp, usage+" (shorthand)")
+}
+
 func main() {
+
+    flag.Usage = func() {
+        fmt.Fprintf(os.Stderr, "This is not helpful.\n")
+        flag.PrintDefaults()
+    }
 
     // Basic flag declarations are available for string,
     // integer, and boolean options. Here we declare a
@@ -19,7 +35,7 @@ func main() {
     // and a short description. This `flag.String` function
     // returns a string pointer (not a string value);
     // we'll see how to use this pointer below.
-    wordPtr := flag.String("word", "foo", "a string")
+    wordPtr := flag.String("word", "", "a string")
 
     // This declares `numb` and `fork` flags, using a
     // similar approach to the `word` flag.
@@ -36,6 +52,8 @@ func main() {
     // Once all flags are declared, call `flag.Parse()`
     // to execute the command-line parsing.
     flag.Parse()
+
+    fmt.Println("help",helpString);
 
     // Here we'll just dump out the parsed options and
     // any trailing positional arguments. Note that we

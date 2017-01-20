@@ -24,10 +24,11 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for scanner.Scan() {
-		//lineObj := make(map[string]string)
-		newJsonStr, delim := "", ""
-		//fmt.Fprintln(os.Stdout, "---Start line---")
+		if len(scanner.Bytes()) < 1 {
+			continue
+		}
 		splitText := strings.Split(scanner.Text(), "|")
+		newJsonStr, delim := "", ""
 		for _, chunk := range splitText {
 			keyValue := strings.Split(chunk, "=")
 			if len(keyValue) != 2 {
