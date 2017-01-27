@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	const src = `
+	const myText = `
 	// This is scanned code.
 	if a > 10 {
 		someParsable = text
