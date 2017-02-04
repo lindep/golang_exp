@@ -4,8 +4,8 @@ import (
   "fmt"
 )
 
-func hello() string {
-  return "Hello, Testing!"
+func hello() (string, int) {
+  return "Hello, Testing!", 1
 }
 
 func main() {
