@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"bufio"
 	"fmt"
 	"os"
@@ -9,7 +10,12 @@ import (
 )
 
 func myOut(msg string) int {
-	//f := bufio.NewWriter(os.Stdout)
+	num ,err := io.WriteString(os.Stdout, msg)
+	if (err != nil) {
+		return -1
+	}
+	return num
+	/*
 	f := bufio.NewWriter(os.Stdout)
 	defer f.Flush()
 	//f.Write(buf)
@@ -17,7 +23,7 @@ func myOut(msg string) int {
 	if (err != nil) {
 		return -1
 	}
-	return num
+	return num*/
 }
 
 func main() {
