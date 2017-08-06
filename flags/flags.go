@@ -10,6 +10,7 @@ package main
 // implement our example command-line program.
 import "flag"
 import "fmt"
+import "os"
 
 var helpString string
 
