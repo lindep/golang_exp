@@ -88,9 +88,11 @@ func main() {
 		switch se := t.(type) {
 		case xml.StartElement:
 			// If we just read a StartElement token
+      fmt.Println("se:", se)
 			inElement = se.Name.Local
+      fmt.Println("word:", inElement)
 			// ...and its name is "page"
-			if inElement == "page" {
+			if inElement == "attributes" {
 				var p Page
 				// decode a whole chunk of following XML into the
 				// variable p which is a Page (se above)
