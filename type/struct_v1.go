@@ -19,8 +19,10 @@ func main() {
 		First: "b",
 		Last:  "y",
 	}
+  p3 := person{"c","x"}
 	xp := []person{p1, p2}
-
+  //fmt.Println("p3 person struct", p3)
+  fmt.Printf("%v %+v\n", p3, p3)
 	fmt.Println("go data", xp)
 
 	bs, err := json.Marshal(xp)
