@@ -5,5 +5,5 @@ import (
 )
 
 func PrintHello() {
-  fmt.Println("From example hello")
+  fmt.Println("Package: hello. From example/pakage/hello")
 }
