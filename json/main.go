@@ -6,7 +6,7 @@ import (
 )
 
 type person struct {
-	First string
+	First string `json:"first"`
 	Last  string
 }
 
@@ -29,14 +29,14 @@ func main() {
 	} else {
 		fmt.Println("json", string(bs))
 	}
-
-	j := `[{"First":"a","Last":"z"},{"First":"b","Last":"y"}]`
+	fmt.Printf("---------------\n");
+	j := `[{"first":"a","Last":"z"},{"First":"b","Last":"y"}]`
 	fmt.Println("json", j)
 	xp1 := []person{}
 	errs := json.Unmarshal([]byte(j), &xp1)
 	if errs != nil {
 		fmt.Println(errs)
 	} else {
-    fmt.Printf("\n%+v\n", xp1) // + also print the field names of the struct
+    fmt.Printf("%+v\n", xp1) // + also print the field names of the struct
   }
 }
