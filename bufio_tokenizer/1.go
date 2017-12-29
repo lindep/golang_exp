@@ -14,8 +14,8 @@ func myOut(msg string) int {
 	f := bufio.NewWriter(os.Stdout)
 	defer f.Flush()
 	//f.Write(buf)
-	num ,err := f.WriteString(msg)
-	if (err != nil) {
+	num, err := f.WriteString(msg)
+	if err != nil {
 		return -1
 	}
 	return num
@@ -32,19 +32,19 @@ func main() {
 	//         //         _, err = strconv.ParseInt(string(token), 10, 32)
 	//         // }
 	//         return
- //  }
+	//  }
 	onPipe := func(data []byte, atEOF bool) (advance int, token []byte, err error) {
-						for i := 0; i < len(data); i++ {
-							if data[i] == '|' {
-								return i + 1, data[:i], nil
-							}
-						}
-						// There is one final token to be delivered, which may be the empty string.
-						// Returning bufio.ErrFinalToken here tells Scan there are no more tokens after this
-						// but does not trigger an error to be returned from Scan itself.
-						return 0, data, bufio.ErrFinalToken
+		for i := 0; i < len(data); i++ {
+			if data[i] == '|' {
+				return i + 1, data[:i], nil
+			}
+		}
+		// There is one final token to be delivered, which may be the empty string.
+		// Returning bufio.ErrFinalToken here tells Scan there are no more tokens after this
+		// but does not trigger an error to be returned from Scan itself.
+		return 0, data, bufio.ErrFinalToken
 	}
-  //bufio.ScanWords
+	//bufio.ScanWords
 	bufScanner.Split(onPipe)
 	// When no Split() default to lines
 	for bufScanner.Scan() {
@@ -67,5 +67,3 @@ func main() {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 }
-
-
