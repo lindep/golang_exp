@@ -1,29 +1,29 @@
 package main
 
 import (
-	"io"
 	"bufio"
 	"fmt"
+	"io"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func myOut(msg string) int {
-	num ,err := io.WriteString(os.Stdout, msg)
-	if (err != nil) {
+	num, err := io.WriteString(os.Stdout, msg)
+	if err != nil {
 		return -1
 	}
 	return num
 	/*
-	f := bufio.NewWriter(os.Stdout)
-	defer f.Flush()
-	//f.Write(buf)
-	num ,err := f.WriteString(msg)
-	if (err != nil) {
-		return -1
-	}
-	return num*/
+		f := bufio.NewWriter(os.Stdout)
+		defer f.Flush()
+		//f.Write(buf)
+		num ,err := f.WriteString(msg)
+		if (err != nil) {
+			return -1
+		}
+		return num*/
 }
 
 func main() {
@@ -33,8 +33,8 @@ func main() {
 		if len(scanner.Bytes()) < 1 {
 			continue
 		}
+		newJSONStr, delim := "", ""
 		splitText := strings.Split(scanner.Text(), "|")
-		newJsonStr, delim := "", ""
 		for _, chunk := range splitText {
 			keyValue := strings.Split(chunk, "=")
 			if len(keyValue) != 2 {
@@ -42,23 +42,23 @@ func main() {
 			}
 
 			if strings.Contains(keyValue[1], ",") {
-				subJsonStr, subDelim := "", ""
+				subJSONStr, subDelim := "", ""
 				for valIdx, value := range strings.Split(keyValue[1], ",") {
 					//subValObj[valIdx] = value
-					subJsonStr = subJsonStr+subDelim+"{\""+strconv.Itoa(valIdx)+"\":\""+value+"\"}"
+					subJSONStr = subJSONStr + subDelim + "{\"" + strconv.Itoa(valIdx) + "\":\"" + value + "\"}"
 					subDelim = ","
 				}
-				subJsonStr = "["+subJsonStr+"]"
-				newJsonStr = newJsonStr+delim+"\""+keyValue[0]+"\":"+subJsonStr
+				subJSONStr = "[" + subJSONStr + "]"
+				newJSONStr = newJSONStr + delim + "\"" + keyValue[0] + "\":" + subJSONStr
 			} else {
-				newJsonStr = newJsonStr+delim+"\""+keyValue[0]+"\":\""+keyValue[1]+"\""
+				newJSONStr = newJSONStr + delim + "\"" + keyValue[0] + "\":\"" + keyValue[1] + "\""
 			}
 			delim = ","
 
 		}
-		newJsonStr = "{"+newJsonStr+"}"
+		newJSONStr = "{" + newJSONStr + "}"
 
-		myOut(newJsonStr+"\n")
+		myOut(newJSONStr + "\n")
 
 	}
 	if err := scanner.Err(); err != nil {
