@@ -2,11 +2,11 @@ package main
 
 import (
 	"bufio"
+	_ "encoding/json"
 	"fmt"
 	"os"
-	"strings"
 	"strconv"
-	_ "encoding/json"
+	"strings"
 )
 
 func myOut(msg string) int {
@@ -14,8 +14,8 @@ func myOut(msg string) int {
 	f := bufio.NewWriter(os.Stdout)
 	defer f.Flush()
 	//f.Write(buf)
-	num ,err := f.WriteString(msg)
-	if (err != nil) {
+	num, err := f.WriteString(msg)
+	if err != nil {
 		return -1
 	}
 	return num
@@ -23,11 +23,11 @@ func myOut(msg string) int {
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
-	
+
 	for scanner.Scan() {
 		lineObj := make(map[string]string)
 
-		newJsonStr, delim := "", ""
+		newJSONStr, delim := "", ""
 
 		fmt.Fprintln(os.Stdout, "---Start line---")
 		//fmt.Println(scanner.Text()+ "new line") // Println will add back the final '\n'
@@ -38,40 +38,39 @@ func main() {
 		fmt.Fprintln(os.Stdout, "\nNumber of values in list =", len(splitText))
 		for i, chunk := range splitText {
 			subValObj := make(map[int]string)
-			
 
 			fmt.Println(i, chunk)
 			keyValue := strings.Split(chunk, "=")
 			fmt.Printf("%d KEY = %s\n", i, keyValue[0])
 
 			if strings.Contains(keyValue[1], ",") {
-				subJsonStr, subDelim := "", ""
+				subJSONStr, subDelim := "", ""
 				for valIdx, value := range strings.Split(keyValue[1], ",") {
 					fmt.Printf("\nfound sub keys\n")
 					fmt.Printf("%d val = %s\n", valIdx, value)
 					subValObj[valIdx] = value
-					subJsonStr = subJsonStr+subDelim+strconv.Itoa(valIdx)+":\""+value+"\""
+					subJSONStr = subJSONStr + subDelim + strconv.Itoa(valIdx) + ":\"" + value + "\""
 					subDelim = ","
 				}
-				subJsonStr = "["+subJsonStr+"]"
+				subJSONStr = "[" + subJSONStr + "]"
 				fmt.Println(subValObj)
-				fmt.Println(subJsonStr)
-				newJsonStr = newJsonStr+delim+"\""+keyValue[0]+"\":"+subJsonStr
+				fmt.Println(subJSONStr)
+				newJSONStr = newJSONStr + delim + "\"" + keyValue[0] + "\":" + subJSONStr
 				//lineObj[keyValue[0]] = subValObj
-				
+
 				// for n, word := range strings.Split(chunk, "=") {
 				// 	fmt.Println(n, word)
 				// }
 			} else {
 				fmt.Printf("%d VALUE = %s\n", i, keyValue[1])
 				lineObj[keyValue[0]] = keyValue[1]
-				newJsonStr = newJsonStr+delim+"\""+keyValue[0]+"\":\""+keyValue[1]+"\""
+				newJSONStr = newJSONStr + delim + "\"" + keyValue[0] + "\":\"" + keyValue[1] + "\""
 			}
 			delim = ","
-			
+
 		}
-		newJsonStr = "{"+newJsonStr+"}"
-		fmt.Println(newJsonStr)
+		newJSONStr = "{" + newJSONStr + "}"
+		fmt.Println(newJSONStr)
 		fmt.Println(lineObj)
 		fmt.Printf("\nsplitText type = %T\n", splitText)
 
@@ -90,5 +89,3 @@ func main() {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 }
-
-
