@@ -1,14 +1,15 @@
 
-* Micro Service *
+** Micro Service **
 
-** get go-kit **
+- Get go-kit package
 
 ```bash
 go get github.com/go-kit/kit
 ```
 
-** Run as follow **
-Set GO env
+- Set GO env
+- Run as follow
+ 
 ```bash
 go run main.go
 ```
